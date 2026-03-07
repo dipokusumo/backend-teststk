@@ -183,6 +183,10 @@ export class MenusService {
         const oldIndex = menu.order_index;
         if (oldIndex === newIndex) return menu;
 
+        // STEP 1: move to temporary index
+        menu.order_index = 0;
+        await manager.save(menu);
+
         if (oldIndex < newIndex) {
           await manager
             .createQueryBuilder()
@@ -190,15 +194,9 @@ export class MenusService {
             .set({
               order_index: () => 'order_index - 1',
             })
-            .where('parent_id <=> :parentId', {
-              parentId,
-            })
-            .andWhere('order_index > :oldIndex', {
-              oldIndex,
-            })
-            .andWhere('order_index <= :newIndex', {
-              newIndex,
-            })
+            .where('parent_id <=> :parentId', { parentId })
+            .andWhere('order_index > :oldIndex', { oldIndex })
+            .andWhere('order_index <= :newIndex', { newIndex })
             .execute();
         } else {
           await manager
@@ -207,18 +205,13 @@ export class MenusService {
             .set({
               order_index: () => 'order_index + 1',
             })
-            .where('parent_id <=> :parentId', {
-              parentId,
-            })
-            .andWhere('order_index >= :newIndex', {
-              newIndex,
-            })
-            .andWhere('order_index < :oldIndex', {
-              oldIndex,
-            })
+            .where('parent_id <=> :parentId', { parentId })
+            .andWhere('order_index >= :newIndex', { newIndex })
+            .andWhere('order_index < :oldIndex', { oldIndex })
             .execute();
         }
 
+        // STEP 2: set final index
         menu.order_index = newIndex;
         return manager.save(menu);
       });
