@@ -1,98 +1,287 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Setup Instructions
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+1. **Clone the repository**
 
 ```bash
-$ pnpm install
+git clone <repository-url>
+cd backend-teststk
 ```
 
-## Compile and run the project
+2. **Install dependencies**
+
+This project uses **pnpm** as the package manager.
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+3. **Setup environment variables**
+
+Copy the example environment file:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+cp .env.example .env
 ```
 
-## Deployment
+Then update the environment variables if needed to match your local database configuration.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+4. **Run database migrations**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Run the migration command to create the required database tables.
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm migration:run
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Make sure your database server is running and the environment variables are configured correctly before executing this command.
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+# How to Run in Development Mode
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Start the development server:
 
-## Support
+```bash
+pnpm start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The application will run at:
 
-## Stay in touch
+```
+http://localhost:3000
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Development mode provides:
 
-## License
+* Automatic server reload when files change
+* Detailed error messages
+* Easier debugging during development
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+# How to Run in Production Mode
+
+1. **Build the application**
+
+```bash
+pnpm build
+```
+
+2. **Start the production server**
+
+```bash
+pnpm start:prod
+```
+
+The optimized production build will run at:
+
+```
+http://localhost:3000
+```
+
+Production mode runs the compiled JavaScript from the `dist` directory for better performance and stability.
+
+---
+
+# API Documentation
+
+## Get All Menus (Tree Structure)
+
+**GET** `/menus`
+
+Returns the hierarchical menu structure.
+
+Example response:
+
+```
+[
+  {
+    "id": 1,
+    "title": "Dashboard",
+    "parent_id": null,
+    "order_index": 1,
+    "children": []
+  },
+  {
+    "id": 2,
+    "title": "Settings",
+    "parent_id": null,
+    "order_index": 1,
+    "children": [
+      {
+        "id": 3,
+        "title": "Users",
+        "parent_id": 2,
+        "order_index": 1,
+        "children": []
+      }
+    ]
+  }
+]
+```
+
+---
+
+## Create Menu
+
+**POST** `/menus`
+
+Request body:
+
+```
+{
+  "title": "Dashboard",
+  "parent_id": null
+}
+```
+
+Description:
+
+Creates a new menu. If `parent_id` is provided, the menu will be created as a child of the specified parent.
+
+---
+
+## Update Menu
+
+**PATCH** `/menus/:id`
+
+Request body:
+
+```
+{
+  "title": "New Menu Name"
+}
+```
+
+Description:
+
+Updates the menu title or other editable fields.
+
+---
+
+## Delete Menu
+
+**DELETE** `/menus/:id`
+
+Description:
+
+Deletes the specified menu.
+
+Menu ordering will be normalized after deletion to keep order indexes consistent.
+
+---
+
+## Move Menu
+
+**PATCH** `/menus/:id/move`
+
+Request body:
+
+```
+{
+  "new_parent_id": 2
+}
+```
+
+Description:
+
+Moves the menu to a new parent.
+
+The system validates:
+
+* Parent existence
+* Prevention of circular references
+* Unique menu titles within the same parent
+
+---
+
+## Reorder Menu
+
+**PATCH** `/menus/:id/reorder`
+
+Request body:
+
+```
+{
+  "new_order_index": 2
+}
+```
+
+Description:
+
+Changes the position of the menu within the same parent.
+
+The system ensures that ordering remains consistent and prevents duplicate order indexes.
+
+---
+
+# Technology Choices and Architecture Decisions
+
+## Technology Choices
+
+**NestJS**
+
+NestJS is used as the primary backend framework because it provides a well-structured architecture with strong support for dependency injection and modular development.
+
+Although I am relatively new to both **NestJS** and **Go**, I chose NestJS for this project because it is built on top of **JavaScript / TypeScript**, which aligns better with my existing experience. This allows me to focus more on implementing the required system logic rather than learning a completely new language ecosystem.
+
+---
+
+**TypeORM**
+
+TypeORM is used as the ORM to simplify database interactions by mapping database tables to TypeScript entities and providing built-in support for transactions and migrations.
+
+---
+
+**MySQL**
+
+MySQL is used as the relational database because it provides strong consistency, reliable transaction support, and is widely used in production systems.
+
+---
+
+**pnpm**
+
+pnpm is used as the package manager because it provides faster installation and more efficient disk usage compared to traditional package managers.
+
+---
+
+## Architecture Decisions
+
+The project follows a **modular and layered architecture** to maintain clear separation of concerns.
+
+**Controller Layer**
+
+Handles incoming HTTP requests and sends responses back to the client.
+
+---
+
+**Service Layer**
+
+Contains the main business logic and coordinates operations such as menu creation, movement, and reordering.
+
+---
+
+**Validator Layer**
+
+Handles business rule validation including:
+
+* Parent existence validation
+* Unique title validation within the same parent
+* Circular reference prevention
+* Order index validation
+
+Separating validation logic from the service layer helps keep services clean and easier to maintain.
+
+---
+
+**Utility Layer**
+
+Reusable logic such as menu ordering operations, transaction helpers, and database error handling are placed inside the `common/utils` directory to avoid duplication and improve maintainability.
+
+---
+
+This layered approach helps the system remain:
+
+* scalable
+* maintainable
+* easier to extend as new features are added
